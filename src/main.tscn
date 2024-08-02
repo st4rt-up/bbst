@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk6s5bex3c7aj"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1_37e81"]
+[ext_resource type="Script" path="res://src/new folder/Game.gd" id="2_5cdg3"]
+[ext_resource type="PackedScene" uid="uid://bqwewgms3sa8d" path="res://src/stages/the grid/TheGrid.tscn" id="3_s7sq1"]
+[ext_resource type="Script" path="res://src/new folder/Camera.gd" id="4_slsxx"]
+[ext_resource type="PackedScene" uid="uid://xk3ptbvwtuel" path="res://src/player/Player.tscn" id="5_3fhey"]
+
+[sub_resource type="GDScript" id="GDScript_t0ex4"]
+resource_name = "grid"
+script/source = "extends Node2D
+
+"
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_37e81")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="ConnectionPanel" type="PanelContainer" parent="ui"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.5
+offset_top = -56.5
+offset_right = 198.5
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ui/ConnectionPanel"]
+layout_mode = 2
+columns = 2
+
+[node name="HostLabel" type="Label" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Host:"
+
+[node name="HostField" type="LineEdit" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+
+[node name="PortLabel" type="Label" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Port:"
+
+[node name="PortField" type="LineEdit" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "9999"
+
+[node name="ServerButton" type="Button" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server"
+
+[node name="ClientButton" type="Button" parent="ui/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Client"
+
+[node name="MessageLabel" type="Label" parent="ui"]
+offset_right = 1151.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+
+[node name="ResetButton" type="Button" parent="ui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -53.0
+offset_right = 154.0
+offset_bottom = -11.0
+grow_vertical = 0
+text = "RESET"
+metadata/_edit_use_anchors_ = true
+
+[node name="SyncLostLabel" type="Label" parent="ui"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Regaining sync..."
+
+[node name="Game" type="Node2D" parent="." groups=["network_sync"]]
+script = ExtResource("2_5cdg3")
+
+[node name="TheGrid" parent="Game" instance=ExtResource("3_s7sq1")]
+position = Vector2(-1351, -28)
+script = SubResource("GDScript_t0ex4")
+
+[node name="Camera2D" type="Camera2D" parent="Game" groups=["network_sync"]]
+position = Vector2(584, 314)
+position_smoothing_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("4_slsxx")
+
+[node name="CameraLabel" type="RichTextLabel" parent="Game/Camera2D"]
+offset_left = -428.0
+offset_top = -187.0
+offset_right = -388.0
+offset_bottom = -147.0
+
+[node name="ServerPlayer" parent="Game" instance=ExtResource("5_3fhey")]
+position = Vector2(152, 256)
+
+[node name="ClientPlayer" parent="Game" instance=ExtResource("5_3fhey")]
+position = Vector2(1023, 396)
+
+[connection signal="pressed" from="ui/ConnectionPanel/GridContainer/ServerButton" to="." method="_on_server_button_pressed"]
+[connection signal="pressed" from="ui/ConnectionPanel/GridContainer/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="pressed" from="ui/ResetButton" to="." method="_on_reset_button_pressed"]

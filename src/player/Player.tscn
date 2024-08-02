@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://xk3ptbvwtuel"]
+
+[ext_resource type="Script" path="res://src/player/Player.gd" id="1_mq5k0"]
+[ext_resource type="PackedScene" uid="uid://ga3gvun1v31l" path="res://src/characters/sol from badguy/sol.tscn" id="3_3xw30"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("character") groups=["network_sync"]]
+script = ExtResource("1_mq5k0")
+character = NodePath("Sol")
+
+[node name="Sol" parent="." instance=ExtResource("3_3xw30")]

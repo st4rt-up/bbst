@@ -1,0 +1,24 @@
+current state of affairs:
+
+essential systems need to be built:
+- health
+- gauges
+- support for custom meters ... ?
+- hitboxes
+- sprite / animation rollback
+
+
+current characters:
+
+basically fleshed out:
+enigma
+balance bar
+fortress
+
+kinda:
+orb guy (gojo)
+whip
+
+not really:
+item toss
+greatsword

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqwewgms3sa8d"]
+
+[ext_resource type="Texture2D" uid="uid://bb3htejlgsdip" path="res://src/stages/the grid/the-grid-bg.jpg" id="1_3pjak"]
+
+[node name="TheGrid" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 1.154)
+texture = ExtResource("1_3pjak")
+centered = false
